@@ -13,6 +13,9 @@ namespace Swiper.Controls
             var picture = new Picture();
             descriptionLabel.Text = picture.Description;
             image.Source = new UriImageSource() { Uri = picture.Uri };
+
+            loadingLabel.SetBinding(IsVisibleProperty, "IsLoading");
+            loadingLabel.BindingContext = image;
         }
     }
 }
