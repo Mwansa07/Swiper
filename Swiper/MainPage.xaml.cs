@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Swiper.Controls;
 
 namespace Swiper
 {
@@ -16,6 +17,7 @@ namespace Swiper
         public MainPage()
         {
             InitializeComponent();
+            MainGrid.Children.Add(new SwiperControl());
         }
     }
 }
