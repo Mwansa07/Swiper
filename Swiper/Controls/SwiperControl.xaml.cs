@@ -14,6 +14,13 @@ namespace Swiper.Controls
         {
             InitializeComponent();
 
+            var panGesture = new PanGestureRecognizer();
+            panGesture.PanUpdated += OnPanUpdated;
+            this.GestureRecognizers.Add(panGesture);
+
+            _initialRotation = _random.Next(-10, 10);
+            photo.RotateTo(_initialRotation, 100, Easing.SinOut);
+
             var picture = new Picture();
             descriptionLabel.Text = picture.Description;
             image.Source = new UriImageSource() { Uri = picture.Uri };
