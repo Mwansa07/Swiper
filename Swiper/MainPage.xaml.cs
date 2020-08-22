@@ -18,6 +18,8 @@ namespace Swiper
         {
             InitializeComponent();
             MainGrid.Children.Add(new SwiperControl());
+
+            //Page 165 Creating Decision Zones is where I left off
         }
     }
 }
