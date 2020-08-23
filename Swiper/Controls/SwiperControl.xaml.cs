@@ -74,6 +74,8 @@ namespace Swiper.Controls
             photo.TranslationX = e.TotalX;
             photo.TranslationY = e.TotalY;
             photo.Rotation = _initialRotation + (photo.TranslationX / 25);
+
+            CalculatePanState(e.TotalX);
         }
 
         private void PanStarted()
