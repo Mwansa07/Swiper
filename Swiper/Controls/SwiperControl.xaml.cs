@@ -77,5 +77,10 @@ namespace Swiper.Controls
         {
             photo.ScaleTo(1.1, 100);
         }
+
+        public static double Clamp(double value, double min, double max)
+        {
+            return (value < min) ? min : (value > max) ? max : value;
+        }
     }
 }
