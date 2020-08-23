@@ -11,6 +11,9 @@ namespace Swiper.Controls
         private readonly double _initialRotation;
         private static readonly Random _random = new Random();
 
+        private const double Deadzone = 0.4d;
+        private const double DecisionThreshold = 0.4d;
+
         public SwiperControl()
         {
             InitializeComponent();
@@ -81,6 +84,26 @@ namespace Swiper.Controls
         public static double Clamp(double value, double min, double max)
         {
             return (value < min) ? min : (value > max) ? max : value;
+        }
+
+        public void CalculatePanState(double panX)
+        {
+            var halfScreenWidth = _screenWidth / 2;
+            var deadZoneEnd = Deadzone * halfScreenWidth;
+
+            if (Math.Abs(panX) < deadZoneEnd)
+            {
+                return;
+            }
+
+            var passedDeadzone = panX < 0 ? panX + deadZoneEnd : panX - deadZoneEnd;
+            var decisionZoneEnd = DecisionThreshold * halfScreenWidth;
+
+            var opacity = passedDeadzone / decisionZoneEnd;
+            opacity = Clamp(opacity, -1, 1);
+
+            likeStackLayout.Opacity = opacity;
+            denyStackLayout.Opacity = -opacity;
         }
     }
 }
