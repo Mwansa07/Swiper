@@ -64,6 +64,14 @@ namespace Swiper.Controls
 
         private void PanCompleted()
         {
+            if (CheckForExitCriteria())
+            {
+                Exit();
+            }
+
+            likeStackLayout.Opacity = 0;
+            denyStackLayout.Opacity = 0;
+
             photo.TranslateTo(0, 0, 250, Easing.SpringOut);
             photo.RotateTo(_initialRotation, 250, Easing.SpringOut);
             photo.ScaleTo(1, 250);
@@ -106,6 +114,26 @@ namespace Swiper.Controls
 
             likeStackLayout.Opacity = opacity;
             denyStackLayout.Opacity = -opacity;
+        }
+
+        private bool CheckForExitCriteria()
+        {
+            var halfScreenWidth = _screenWidth / 2;
+            var decisionBreakpoint = Deadzone * halfScreenWidth;
+            return (Math.Abs(photo.TranslationX) > decisionBreakpoint);
+        }
+
+        private void Exit()
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                var direction = photo.TranslationX < 0 ? -1 : 1;
+
+                await photo.TranslateTo(photo.TranslationX + (_screenWidth * direction),
+                    photo.TranslationY, 200, Easing.CubicIn);
+                var parent = Parent as Layout<View>;
+                parent?.Children.Remove(this);
+            });
         }
     }
 }
