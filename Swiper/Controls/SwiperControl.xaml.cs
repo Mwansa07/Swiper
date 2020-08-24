@@ -7,6 +7,9 @@ namespace Swiper.Controls
 {
     public partial class SwiperControl : ContentView
     {
+        public event EventHandler Onlike;
+        public event EventHandler OnDeny;
+
         private double _screenWidth = -1;
         private readonly double _initialRotation;
         private static readonly Random _random = new Random();
@@ -128,6 +131,16 @@ namespace Swiper.Controls
             Device.BeginInvokeOnMainThread(async () =>
             {
                 var direction = photo.TranslationX < 0 ? -1 : 1;
+
+                if (direction > 0)
+                {
+                    Onlike?.Invoke(this, new EventArgs());
+                }
+
+                if (direction < 0)
+                {
+                    OnDeny?.Invoke(this, new EventArgs());
+                }
 
                 await photo.TranslateTo(photo.TranslationX + (_screenWidth * direction),
                     photo.TranslationY, 200, Easing.CubicIn);
