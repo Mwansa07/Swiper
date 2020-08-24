@@ -17,9 +17,21 @@ namespace Swiper
         public MainPage()
         {
             InitializeComponent();
-            MainGrid.Children.Add(new SwiperControl());
+            AddInitialPhotos();
+        }
 
-            //Page 165 Creating Decision Zones is where I left off
+        private void AddInitialPhotos()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                InsertPhoto();
+            }
+        }
+
+        private void InsertPhoto()
+        {
+            var photo = new SwiperControl();
+            this.MainGrid.Children.Insert(0, photo);
         }
     }
 }
