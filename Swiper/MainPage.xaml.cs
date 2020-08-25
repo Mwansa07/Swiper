@@ -54,6 +54,9 @@ namespace Swiper
         private void InsertPhoto()
         {
             var photo = new SwiperControl();
+            photo.OnDeny += Handle_OnDeny;
+            photo.Onlike += Handle_Onlike;
+
             this.MainGrid.Children.Insert(0, photo);
         }
     }
