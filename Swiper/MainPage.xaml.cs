@@ -14,6 +14,29 @@ namespace Swiper
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        private int _likeCount;
+        private int _denyCount;
+
+        private void UpdateGui()
+        {
+            likeLabel.Text = _likeCount.ToString();
+            denyLabel.Text = _denyCount.ToString();
+        }
+
+        private void Handle_Onlike(object sender, EventArgs e)
+        {
+            _likeCount++;
+            InsertPhoto();
+            UpdateGui();
+        }
+
+        private void Handle_OnDeny(Object sender, EventArgs e)
+        {
+            _denyCount++;
+            InsertPhoto();
+            UpdateGui();
+        }
+
         public MainPage()
         {
             InitializeComponent();
